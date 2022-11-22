@@ -1,0 +1,23 @@
+version: 0.2
+env:
+  variables:
+    CACHE_CONTROL: "86400"
+    BUILD_FOLDER: "build"
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      - echo Installing source NPM dependencies...
+      - npm install
+  build:
+    commands:
+      - echo Build started
+      - npm run build
+  post_build:
+    commands:
+      - echo build process finished, we should upload to S3 now
+artifacts:
+  files:
+    - "**/*"
+  base-directory: "build"
